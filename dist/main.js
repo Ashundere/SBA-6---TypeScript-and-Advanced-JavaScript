@@ -13,9 +13,12 @@ async function productInstances() {
     return productList;
 }
 async function displayProduct(productid) {
-    const productList = await productInstances();
-    productList[productid - 1].displayDetails();
+    try {
+        const productList = await productInstances();
+        productList[productid - 1].displayDetails();
+    }
+    catch (e) {
+        throw new ConnectionError("Cannot connect to API");
+    }
 }
-displayProduct(1);
-displayProduct(3);
 //# sourceMappingURL=main.js.map

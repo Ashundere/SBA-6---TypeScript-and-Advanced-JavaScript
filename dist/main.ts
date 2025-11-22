@@ -19,9 +19,13 @@ async function productInstances() {
 
 
 async function displayProduct(productid:number) {
+    try{
     const productList = await productInstances()
     productList[productid-1].displayDetails()
+    }catch(e){
+        throw new ConnectionError("Cannot connect to API")
+    }
+    
     
 }
-displayProduct(1)
-displayProduct(3)
+
