@@ -1,0 +1,27 @@
+import { fetchProducts } from "../src/services/apiService";
+import { calculateDiscount } from "../src/utils/discountCalculator";
+import { calculateTax } from "../src/utils/taxCalculator";
+import { ConnectionError } from "../src/utils/errorHandler";
+import { Product } from "../src/models/product";
+
+
+
+async function productInstances() {
+    const products = await fetchProducts()
+    const productList: Product[] = []
+
+    for(let i=0; i < products.length; i++) {
+        const product = new Product(products[i].id, products[i].title, products[i].description, products[i].category, products[i].price, products[i].discountPercentage)
+        productList.push(product)
+    }
+    return productList
+}
+
+
+async function displayProduct(productid:number) {
+    const productList = await productInstances()
+    productList[productid-1].displayDetails()
+    
+}
+displayProduct(1)
+displayProduct(3)
